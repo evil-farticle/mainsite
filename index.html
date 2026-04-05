@@ -27,5 +27,147 @@
             font-family: 'Courier New', Courier, monospace; 
             overflow: hidden; /*for scrollingz*/
         }
-    <head>
+
+        .grid {
+
+            display: grid;
+            grid-template-columns: repeat(4, 120px); 
+            grid-template-rows: repeat(3, 170px);   
+            gap: 40px;                             
+            perspective: 1200px; /* give perspective to grid */
+        }
+
+        .card {
+            /*INDIVIDUAL CARDS ////////////////////////*/
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            /*temp*/
+            background-color: white;
+            color: black;
+            /*temp*/
+
+            text-decoration: none;
+            font-weight: 900;
+            border-radius: 10px; 
+            
+            /* TEMP */
+            /* TEMP */
+            border: 4px solid #333;
+            box-shadow: 0 8px 0px rgba(0, 0, 0, 0.5);
+            /* TEMP */
+            /* TEMP */
+            
+            transform-style: preserve-3d;
+            
+            /* snap back animation*/
+            transition: transform 0.05s cubic-bezier(0.18, 0.89, 0.32, 1.28), 
+                        box-shadow 0.05s ease;
+            
+            cursor: pointer;
+            aspect-ratio: 2.5 / 3.5;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        /* grid */
+
+        .card-top-left { grid-column: 2; grid-row: 1; }
+
+        .card-top-right { grid-column: 3; grid-row: 1; }
+
+        .card-mid-left { grid-column: 1; grid-row: 2; }
+
+        .card-mid-right { grid-column: 4; grid-row: 2; }
+
+        .card-bot-left { grid-column: 2; grid-row: 3; }
+
+        .card-bot-right { grid-column: 3; grid-row: 3; }
+
+        /* hover lift */
+
+        .card:hover {
+
+            box-shadow: 0 20px 30px black;
+            z-index: 10; /*bring hovered card to front*/
+        }
+
+       
+        /*stacks cards vertically if window is shrunk*/
+        @media (max-width: 700px) {
+        
+            .grid { /* flex display for small screens*/
+            
+            	display: flex; 
+                flex-direction: column; 
+                padding: 40px; 
+                
+                }
+
+            .card {  /* make cards centered or smaller screenz */
+            	width: 140px; 
+                margin: 0 auto; 
+                }
+        }
+    </style>
+</head>
+
+
+<body>
+<!-- div for grid and card classes for specific cards WHY DOES THIS COMMENT NEED TO BE DIFFEREBt?>!?>!!>--> 
+    <div class="grid"> 
+  
+        <a href="#" class="card card-top-left">guhh</a>
+        <a href="#" class="card card-top-right">brap</a>
+    
+        <a href="#" class="card card-mid-left">fart</a>
+        <a href="#" class="card card-mid-right">poopie</a>
+    
+        <a href="#" class="card card-bot-left">t</a>
+        <a href="#" class="card card-bot-right">s</a>
+        
+    </div>
+
+
+
+    <script>
+    /* I found this script in https://github.com/topics/hover-effects this collection*/
+    /*card hover move 3d looking script*/
+    
+        const cards = document.querySelectorAll('.card'); /*changed this to match classes*/
+
+        cards.forEach(card => {
+        
+        /*event listener to track mouse movement*/
+            card.addEventListener('mousemove', (e) => {
+            
+                const rect = card.getBoundingClientRect(); /*script to getg bounding box*/
+                
+                const x = e.clientX - rect.left; 
+                const y = e.clientY - rect.top;  
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                /*tilt*/
+                const rotateX = ((y - centerY) / centerY) * -25; 
+                const rotateY = ((x - centerX) / centerX) * 25;
+
+                card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.15, 1.15, 1.15)`; /*thank you github for this algorithm*/
+                
+            });
+
+            card.addEventListener('mouseleave', () => {
+            
+                /*event listener to detect when mouse leaves so that it snaps back 2 normal :3*/
+                
+                card.style.transform = `rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+            });
+        });
+    </script>
+    
+</body>
+
 </html>
