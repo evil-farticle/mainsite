@@ -33,7 +33,12 @@
             display: grid;
             grid-template-columns: repeat(4, 120px); 
             grid-template-rows: repeat(3, 170px);   
-            gap: 40px;                             
+
+            /* FOR SOME GOD FORSAKEN REASON THIS LINE OF CODE IS NECCESSARY!!!! IDK WHY
+            DO NOT TOUCH!*/
+            gap: 100px;  
+            /* ``````````````````````````````````*/
+            
             perspective: 1200px; /* give perspective to grid */
         }
 
@@ -48,6 +53,9 @@
             background-color: white;
             color: black;
             /*temp*/
+            
+            /*animations REMOVED!!!!!!!!!!!!!!!!!!!!!!! FUCK!
+            animation: bobbing 3s infinitewhe ease-in-out; */
 
             text-decoration: none;
             font-weight: 900;
@@ -60,7 +68,7 @@
             /* TEMP */
             /* TEMP */
             
-            transform-style: preserve-3d;
+            transform-style: preserve-3d; /* 3d transformer*/
             
             /* snap back animation*/
             transition: transform 0.05s cubic-bezier(0.18, 0.89, 0.32, 1.28), 
@@ -74,6 +82,8 @@
         }
 
         /* grid */
+        
+        /*testing lining them up*/
 
         .card-top-left { grid-column: 2; grid-row: 1; }
 
@@ -91,11 +101,19 @@
 
         .card:hover {
 
-            box-shadow: 0 20px 30px black;
+            box-shadow: 0 5px 10px black;
             z-index: 10; /*bring hovered card to front*/
         }
 
-       
+       	/*bobbing REMOVED!!! ts too hard
+        @keyframes bobbing {
+        
+        	0% { margin-bottom: 0px;}
+        	50% { margin-bottom: 8px;}
+        	100% { margin-bottom: 0px;}
+            
+        }*/
+        
         /*stacks cards vertically if window is shrunk*/
         @media (max-width: 700px) {
         
@@ -164,8 +182,13 @@
                 /*event listener to detect when mouse leaves so that it snaps back 2 normal :3*/
                 
                 card.style.transform = `rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-            });
-        });
+
+            }
+        );
+
+        }
+
+    );
     </script>
     
 </body>
